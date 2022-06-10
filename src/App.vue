@@ -1,18 +1,23 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import Navigator from './components/Navigator.vue';
 </script>
 
 <template>
-  <header>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/shop">Shop</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-  </header>
-
+  <Navigator />
   <RouterView />
 </template>
+
+<style>
+body {
+  background-color: rgb(240, 240, 240);
+  font-family: sans-serif;
+}
+
+html, body, #app {
+  height: 100%;
+}
+</style>
 
 <style scoped>
 nav a {

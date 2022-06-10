@@ -1,34 +1,51 @@
 <script>
+import ArtCard from '../components/ArtCard.vue'
+import { useCartStore } from '../stores/cart';
+
 export default {
+  setup() {
+    const cartStore = useCartStore()
+
+    return {cartStore}
+  },
   data() {
-    return {
-      items: [
-        {name: "Quadro foda", description: "Esse quadro foi pintado durante a guerra do vietna por soldados refugiados"},
-        {name: "Quadro magnifico", description: "Esse quadro foi pintado durante a guerra do vietna por soldados refugiados"},
-        {name: "Quadro fantastico", description: "Esse quadro foi pintado durante a guerra do vietna por soldados refugiados"},
-        {name: "Quadro sensacional", description: "Esse quadro foi pintado durante a guerra do vietna por soldados refugiados"},
-      ]
+      return {
+          items: [
+              { name: "Awesome Picture", description: "This picture is soo awesome that you won't be able to leave this website without buying it", price: 1267,  image: "https://images.pexels.com/photos/6343855/pexels-photo-6343855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+              { name: "Magnific Picture", description: "This picture is soo magnific that you won't be able to leave this website without buying it", price: 4234,  image: "https://images.pexels.com/photos/1606591/pexels-photo-1606591.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+              { name: "Fantastic Picture", description: "This picture is soo fantastic that you won't be able to leave this website without buying it", price: 3245,  image: "https://images.pexels.com/photos/1255372/pexels-photo-1255372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+              { name: "Incredible Picture", description: "This picture is soo incredible that you won't be able to leave this website without buying it", price: 2378,  image: "https://images.pexels.com/photos/3045825/pexels-photo-3045825.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+              { name: "Unbelievable Picture", description: "This picture is soo unbelievable that you won't be able to leave this website without buying it", price: 2347,  image: "https://images.pexels.com/photos/4587855/pexels-photo-4587855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+              { name: "Already yours Picture", description: "This picture is soo already yours that you won't be able to leave this website without buying it", price: 3946,  image: "https://images.pexels.com/photos/5603660/pexels-photo-5603660.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+          ]
+      };
+  },
+  methods: {
+    buyArt(item) {
+      this.cartStore.add(item)
+      this.$router.push('cart')
     }
-  }
+  },
+  components: { ArtCard }
 }
 </script>
 
 <template>
   <div class="list">
-    <div class="item" v-for="item in items">
-      <img loading="lazy" src="https://apliquefacil.vteximg.com.br/arquivos/ids/192654-587-587/QD11470-quadro-decorativo-Geek-Filete-preto.jpg?v=637556787125700000" />
-      <h1>{{item.name}}</h1>
-      <p>{{item.description}}</p>
-      <button>Buy</button>
-    </div>
+    <ArtCard 
+      v-for="item, i in items"
+      :key="i"
+      :name="item.name"
+      :description="item.description"
+      :image="item.image"
+      :price="item.price"
+      @clickBuy="buyArt(item)"
+    />
   </div>
 </template>
 
 <style>
-  body {
-    background-color: rgb(240, 240, 240);
-    font-family: sans-serif;
-  }
+
 </style>
 
 <style scoped>
@@ -38,44 +55,5 @@ export default {
     justify-content: center;
     max-width: 100%;
     flex-wrap: wrap;
-  }
-
-  .item {
-    width: 25%;
-    min-width: 400px;
-    /* height: 350px */
-    margin: 2em;
-    padding: 1em;
-    box-sizing: border-box;
-    background-color: white;
-  }
-
-  .item h1 {
-    color: rgb(60, 60, 60);
-  }
-
-  .item img {
-    width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-  }
-
-  .item button { 
-    float: right;
-    color: white;
-    background-color: hsl(220, 100%, 50%);
-    outline: none;
-    border: 0;
-    padding: .6em 1.5em;
-    font-size: 1.1em;
-    transition: .15s;
-  }
-
-  .item button:hover {
-    background-color: hsl(220, 100%, 60%);
-  }
-
-  .item p {
-    color: rgb(60, 60, 60);
   }
 </style>
